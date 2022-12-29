@@ -15,6 +15,35 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<maven-pmd-plugin.version>3.19.0</maven-pmd-plugin.version>
+		<maven-site-plugin.version>4.0.0-M3</maven-site-plugin.version>
+		<dependency-check-maven.version>7.2.1</dependency-check-maven.version>
+		<impsort-maven-plugin.version>1.7.0</impsort-maven-plugin.version>
+
+		<!-- Spring boot version -->
+		<maven-apache-plugins.version>3.0.0-M7</maven-apache-plugins.version>
+		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+		<lombok.version>1.18.24</lombok.version>
+		<springdoc.version>2.0.0</springdoc.version>
+
+		<!-- Language encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Mapping -->
+		<mapstruct.version>1.5.2.Final</mapstruct.version>
+		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+
+		<!-- Testing -->
+		<pitest.version>1.9.5</pitest.version>
+		<pitest-junit5-plugin.version>1.0.0</pitest-junit5-plugin.version>
+		<minimum-coverage-ratio>0.8</minimum-coverage-ratio>
+		<jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+		<sonar.coverage.jacoco.xmlReportPaths>
+			${project.basedir}/report-aggregate/target/site/jacoco-aggregate/jacoco.xml
+		</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -66,6 +95,161 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>${lombok-mapstruct-binding.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>${pitest.version}</version>
+				<configuration>
+					<targetClasses>
+						<param>net.talaatharb.sigilina.*</param>
+					</targetClasses>
+					<targetTests>
+						<param>net.talaatharb.sigilina.*</param>
+					</targetTests>
+					<excludedTestClasses>
+						<param>net.talaatharb.**.*IT</param>
+					</excludedTestClasses>
+					<mutators>
+						<mutator>DEFAULTS</mutator>
+					</mutators>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-junit5-plugin</artifactId>
+						<version>${pitest-junit5-plugin.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven-pmd-plugin.version}</version>
+				<configuration>
+					<excludeRoots>
+						<excludeRoot>target/generated-sources</excludeRoot>
+						<excludeRoot>target/generated-test-sources</excludeRoot>
+					</excludeRoots>
+					<linkXRef>true</linkXRef>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>${dependency-check-maven.version}</version>
+				<configuration>
+					<failBuildOnCVSS>7.0</failBuildOnCVSS>
+					<assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+					<failOnError>true</failOnError>
+					<suppressionFile>dependency-check-suppression.xml</suppressionFile>
+					<skipTestScope>true</skipTestScope>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>META-INF/**</exclude>
+						<exclude>net/talaatharb/**/*Application.*</exclude>
+						<exclude>**/config/*</exclude>
+						<exclude>**/dtos/*</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<formats>
+								<format>XML</format>
+							</formats>
+						</configuration>
+					</execution>
+					<execution>
+						<id>report-aggregate</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report-aggregate</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>PACKAGE</element>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>${minimum-coverage-ratio}</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
