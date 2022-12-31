@@ -7,9 +7,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class TodoDTO {
-
-    private Long id;
+public class TodoDTO extends BaseDTO{
 
     private String title;
 

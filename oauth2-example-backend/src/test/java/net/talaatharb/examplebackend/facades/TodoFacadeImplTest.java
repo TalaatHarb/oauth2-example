@@ -10,6 +10,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -43,5 +47,25 @@ class TodoFacadeImplTest {
         verify(todoMapper).fromDTOToEntity(todoDTOToCreate);
         verify(todoService).createTodo(todo);
         verify(todoMapper).fromEntityToDTO(todo);
+    }
+
+    @Test
+    void testGetTodosCallsCorrespondingService(){
+        // Arrange
+        // Page details
+        int page = 0;
+        int size = 10;
+        Pageable pageable = PageRequest.of(page, size, Sort.by("updateDate").descending());
+
+        Page<Todo> todos = Page.empty();
+        when(todoService.getTodos(pageable)).thenReturn(todos);
+        when(todoMapper.fromEntityToDTO(todos)).thenReturn(Page.empty());
+
+        // Act
+        todoFacade.getTodos(pageable);
+
+        // Assert
+        verify(todoService).getTodos(pageable);
+        verify(todoMapper).fromEntityToDTO(todos);
     }
 }

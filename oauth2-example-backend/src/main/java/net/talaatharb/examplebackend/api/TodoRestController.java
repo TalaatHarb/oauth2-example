@@ -3,6 +3,8 @@ package net.talaatharb.examplebackend.api;
 import lombok.RequiredArgsConstructor;
 import net.talaatharb.examplebackend.dtos.TodoDTO;
 import net.talaatharb.examplebackend.facades.TodoFacade;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,5 +20,10 @@ public class TodoRestController implements  TodoAPI{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, APIConstants.TODO_INVALID);
         }
         return todoFacade.createTodo(todo);
+    }
+
+    @Override
+    public Page<TodoDTO> getTodos(Pageable pageable) {
+        return todoFacade.getTodos(pageable);
     }
 }

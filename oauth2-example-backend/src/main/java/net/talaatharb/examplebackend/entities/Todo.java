@@ -10,10 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Todo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Todo extends BaseEntity{
 
     private String title;
 

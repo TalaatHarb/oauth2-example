@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import net.talaatharb.examplebackend.dtos.TodoDTO;
 import net.talaatharb.examplebackend.mappers.TodoMapper;
 import net.talaatharb.examplebackend.services.TodoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,5 +20,11 @@ public class TodoFacadeImpl implements TodoFacade{
         var todo = todoMapper.fromDTOToEntity(todoDTO);
         todo = todoService.createTodo(todo);
         return todoMapper.fromEntityToDTO(todo);
+    }
+
+    @Override
+    public Page<TodoDTO> getTodos(Pageable pageable) {
+        var todos = todoService.getTodos(pageable);
+        return todoMapper.fromEntityToDTO(todos);
     }
 }

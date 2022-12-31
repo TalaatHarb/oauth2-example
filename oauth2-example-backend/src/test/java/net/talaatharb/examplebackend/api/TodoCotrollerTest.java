@@ -8,6 +8,9 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -45,6 +48,18 @@ class TodoCotrollerTest {
 
         // Assert
         assertThrows(ResponseStatusException.class ,action, APIConstants.TODO_INVALID);
+    }
+
+    @Test
+    void testGetTodosCallsCorrespondingFacade(){
+        // Arrange
+        int page = 0;
+        int size = 10;
+        Pageable pageable = PageRequest.of(page, size, Sort.by("updateDate").descending());
+
+        todoAPI.getTodos(pageable);
+
+        verify(todoFacade).getTodos(pageable);
     }
 
 }

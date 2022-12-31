@@ -1,7 +1,13 @@
 package net.talaatharb.examplebackend.facades;
 
 import net.talaatharb.examplebackend.dtos.TodoDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface TodoFacade {
-    public abstract TodoDTO createTodo(TodoDTO todo);
+    TodoDTO createTodo(TodoDTO todo);
+
+    Page<TodoDTO> getTodos(Pageable pageable);
 }

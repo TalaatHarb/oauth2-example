@@ -1,8 +1,12 @@
 package net.talaatharb.examplebackend.services;
 
 import net.talaatharb.examplebackend.entities.Todo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface TodoService {
 
-    public abstract Todo createTodo(Todo todo);
+    Todo createTodo(Todo todo);
+
+    Page<Todo> getTodos(Pageable pageable);
 }
