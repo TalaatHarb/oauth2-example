@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @Tag("Integration")
 @ActiveProfiles(profiles = "test")
 @AutoConfigureMockMvc
+public
 class AbstractControllerIT {
     @Autowired
     protected MockMvc mockMVC;
