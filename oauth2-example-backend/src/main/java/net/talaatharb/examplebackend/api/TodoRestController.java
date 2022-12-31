@@ -26,4 +26,9 @@ public class TodoRestController implements  TodoAPI{
     public Page<TodoDTO> getTodos(Pageable pageable) {
         return todoFacade.getTodos(pageable);
     }
+
+    @Override
+    public TodoDTO getTodo(Long id) {
+        return todoFacade.getTodo(id);
+    }
 }

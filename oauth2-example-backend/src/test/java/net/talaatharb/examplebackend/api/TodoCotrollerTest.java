@@ -62,4 +62,14 @@ class TodoCotrollerTest {
         verify(todoFacade).getTodos(pageable);
     }
 
+    @Test
+    void testGetTodoCallsCorrespondingFacade(){
+        // Arrange
+        Long id = 1L;
+
+        todoAPI.getTodo(id);
+
+        verify(todoFacade).getTodo(id);
+    }
+
 }

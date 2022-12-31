@@ -27,4 +27,10 @@ public class TodoFacadeImpl implements TodoFacade{
         var todos = todoService.getTodos(pageable);
         return todoMapper.fromEntityToDTO(todos);
     }
+
+    @Override
+    public TodoDTO getTodo(Long id) {
+        var todo = todoService.getTodo(id);
+        return todoMapper.fromEntityToDTO(todo);
+    }
 }

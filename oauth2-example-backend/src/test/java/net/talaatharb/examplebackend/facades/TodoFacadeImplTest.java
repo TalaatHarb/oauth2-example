@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -67,5 +68,23 @@ class TodoFacadeImplTest {
         // Assert
         verify(todoService).getTodos(pageable);
         verify(todoMapper).fromEntityToDTO(todos);
+    }
+
+    @Test
+    void testGetTodoCallsCorrespondingService(){
+        // Arrange
+        // Page details
+        Long id = 1L;
+        var todo = new Todo();
+
+        when(todoService.getTodo(anyLong())).thenReturn(todo);
+        when(todoMapper.fromEntityToDTO(todo)).thenReturn(new TodoDTO());
+
+        // Act
+        todoFacade.getTodo(id);
+
+        // Assert
+        verify(todoService).getTodo(id);
+        verify(todoMapper).fromEntityToDTO(todo);
     }
 }

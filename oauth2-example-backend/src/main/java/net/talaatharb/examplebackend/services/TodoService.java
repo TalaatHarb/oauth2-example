@@ -9,4 +9,6 @@ public interface TodoService {
     Todo createTodo(Todo todo);
 
     Page<Todo> getTodos(Pageable pageable);
+
+    Todo getTodo(long anyLong);
 }

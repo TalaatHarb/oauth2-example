@@ -16,4 +16,8 @@ public interface TodoAPI {
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     Page<TodoDTO> getTodos(Pageable pageable);
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    TodoDTO getTodo(@PathVariable("id") Long id);
 }

@@ -10,4 +10,6 @@ public interface TodoFacade {
     TodoDTO createTodo(TodoDTO todo);
 
     Page<TodoDTO> getTodos(Pageable pageable);
+
+    TodoDTO getTodo(Long id);
 }
