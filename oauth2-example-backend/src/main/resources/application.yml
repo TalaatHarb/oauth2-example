@@ -8,7 +8,8 @@ logging:
 
 spring:
   jackson:
-    default-property-inclusion: NON_NULL
+    mapper:
+      DEFAULT_VIEW_INCLUSION: true
   jpa:
     open-in-view: false
     database: default
