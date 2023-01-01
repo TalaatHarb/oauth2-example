@@ -1,8 +1,8 @@
 package net.talaatharb.examplebackend.exceptions;
 
 public class TodoNotFoundException extends RuntimeException{
-    private Long id;
-    public TodoNotFoundException(Long id){
+    private final Long id;
+    public TodoNotFoundException(final Long id){
         super();
         this.id = id;
     }

@@ -11,16 +11,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+    SecurityConfiguration() {
+    }
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         http // HTTP Security
                 .cors().and() // CORS policy
                 .csrf().disable() // CSRF disable
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // disable
-                .authorizeHttpRequests((requests) -> requests
+                .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                 ).oauth2ResourceServer().jwt();
 
         return http.build();

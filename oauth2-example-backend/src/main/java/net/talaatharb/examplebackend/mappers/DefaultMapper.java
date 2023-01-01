@@ -37,8 +37,8 @@ public interface DefaultMapper<E, D> {
 	 * @param entityPage the page of entities to convert
 	 * @return the resulting DTO page from converting the entity page
 	 */
-	default Page<D> fromEntityToDTO(Page<E> entityPage) {
-		List<D> dtos = this.fromEntityToDTO(entityPage.getContent());
+	default Page<D> fromEntityToDTO(final Page<E> entityPage) {
+		final List<D> dtos = this.fromEntityToDTO(entityPage.getContent());
 		return new PageImpl<>(dtos, entityPage.getPageable(), entityPage.getTotalElements());
 	}
 }

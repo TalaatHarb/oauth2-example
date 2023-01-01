@@ -16,21 +16,21 @@ public class TodoFacadeImpl implements TodoFacade{
 
     private final TodoService todoService;
     @Override
-    public TodoDTO createTodo(TodoDTO todoDTO) {
+    public TodoDTO createTodo(final TodoDTO todoDTO) {
         var todo = todoMapper.fromDTOToEntity(todoDTO);
         todo = todoService.createTodo(todo);
         return todoMapper.fromEntityToDTO(todo);
     }
 
     @Override
-    public Page<TodoDTO> getTodos(Pageable pageable) {
-        var todos = todoService.getTodos(pageable);
+    public Page<TodoDTO> getTodos(final Pageable pageable) {
+        final var todos = todoService.getTodos(pageable);
         return todoMapper.fromEntityToDTO(todos);
     }
 
     @Override
-    public TodoDTO getTodo(Long id) {
-        var todo = todoService.getTodo(id);
+    public TodoDTO getTodo(final Long id) {
+        final var todo = todoService.getTodo(id);
         return todoMapper.fromEntityToDTO(todo);
     }
 }

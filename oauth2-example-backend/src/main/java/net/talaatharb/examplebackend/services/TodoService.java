@@ -10,5 +10,5 @@ public interface TodoService {
 
     Page<Todo> getTodos(Pageable pageable);
 
-    Todo getTodo(long anyLong);
+    Todo getTodo(Long anyLong);
 }

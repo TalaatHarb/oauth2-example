@@ -1,2 +1,1 @@
-docker run --name=uaa -p 8180:8080 -p 8443:8443 -e KEYCLOAK_USER_FILE=/tmp/user.txt -e KEYCLOAK_PASSWORD_FILE=/tmp/password.txt -v ${PWD}/files:/tmp -d jboss/keycloak
-# docker run --name=uaa -p 8180:8080 -p 8443:8443 -e KEYCLOAK_USER_FILE=/tmp/user.txt -e KEYCLOAK_PASSWORD_FILE=/tmp/password.txt -e KEYCLOAK_IMPORT=/tmp/uaa.json -v ${PWD}/files:/tmp -d jboss/keycloak
+docker run --name=uaa -p 8180:8080 -p 8443:8443 -e KEYCLOAK_USER_FILE=/tmp/user.txt -e KEYCLOAK_PASSWORD_FILE=/tmp/password.txt -e KEYCLOAK_IMPORT=/tmp/uaa.json -v ${PWD}/files:/tmp --name uaa -d jboss/keycloak

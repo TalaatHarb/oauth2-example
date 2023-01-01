@@ -15,7 +15,7 @@ public class TodoRestController implements  TodoAPI{
     private final TodoFacade todoFacade;
 
     @Override
-    public TodoDTO createTodo(TodoDTO todo) {
+    public TodoDTO createTodo(final TodoDTO todo) {
         if(!todo.isValidToCreate()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, APIConstants.TODO_INVALID);
         }
@@ -23,12 +23,12 @@ public class TodoRestController implements  TodoAPI{
     }
 
     @Override
-    public Page<TodoDTO> getTodos(Pageable pageable) {
+    public Page<TodoDTO> getTodos(final Pageable pageable) {
         return todoFacade.getTodos(pageable);
     }
 
     @Override
-    public TodoDTO getTodo(Long id) {
+    public TodoDTO getTodo(final Long id) {
         return todoFacade.getTodo(id);
     }
 }

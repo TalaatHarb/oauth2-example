@@ -8,8 +8,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MapperBeansConfig {
 
+    MapperBeansConfig() {
+    }
+
     @Bean
-    public TodoMapper todoMapper(){
+    public TodoMapper todoMapper() {
         return Mappers.getMapper(TodoMapper.class);
     }
 }

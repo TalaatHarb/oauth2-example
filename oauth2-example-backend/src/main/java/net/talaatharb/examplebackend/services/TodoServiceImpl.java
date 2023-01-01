@@ -18,18 +18,18 @@ public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
 
     @Override
-    public Todo createTodo(Todo todo) {
+    public Todo createTodo(final Todo todo) {
         return todoRepository.save(todo);
     }
 
     @Override
-    public Page<Todo> getTodos(Pageable pageable) {
+    public Page<Todo> getTodos(final Pageable pageable) {
         return todoRepository.findAll(pageable);
     }
 
     @Override
-    public Todo getTodo(long id) {
-        Optional<Todo> todoOptional = todoRepository.findById(id);
+    public Todo getTodo(final Long id) {
+        final Optional<Todo> todoOptional = todoRepository.findById(id);
         if(todoOptional.isEmpty()){
             throw new TodoNotFoundException(id);
         }

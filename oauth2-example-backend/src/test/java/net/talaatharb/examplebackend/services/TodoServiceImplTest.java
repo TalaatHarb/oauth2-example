@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class TodoServiceImplTest {
+class TodoServiceImplTest {
     @InjectMocks
     private TodoServiceImpl todoService;
 
