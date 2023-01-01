@@ -1,0 +1,7 @@
+{
+  "name": "oauth2-example-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
