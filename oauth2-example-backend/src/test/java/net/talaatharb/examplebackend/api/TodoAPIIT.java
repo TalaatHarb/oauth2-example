@@ -8,6 +8,7 @@ import net.talaatharb.examplebackend.utils.TodoTestUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class TodoAPIIT extends AbstractControllerIT {
     TodoRepository todoRepository;
 
     @Test
+    @WithMockUser
     void testCreateTodo() throws Exception {
         // Arrange
         TodoDTO todo = TodoTestUtils.buildTodoDTOToCreate();
@@ -34,6 +36,7 @@ public class TodoAPIIT extends AbstractControllerIT {
     }
 
     @Test
+    @WithMockUser
     void testGetTodos() throws Exception {
         // Arrange
         // Page details
@@ -53,6 +56,7 @@ public class TodoAPIIT extends AbstractControllerIT {
     }
 
     @Test
+    @WithMockUser
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     void testGetTodo() throws Exception {
         // Arrange
@@ -69,6 +73,7 @@ public class TodoAPIIT extends AbstractControllerIT {
     }
 
     @Test
+    @WithMockUser
     void testGetTodoThrowsNotFoundExceptionWhenNotExist() throws Exception {
         // Arrange
         Integer id = 0;

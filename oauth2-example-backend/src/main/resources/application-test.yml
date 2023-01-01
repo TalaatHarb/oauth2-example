@@ -1,0 +1,6 @@
+spring:
+  jpa:
+    open-in-view: false
+    database: default
+    hibernate:
+      ddl-auto: create-drop
