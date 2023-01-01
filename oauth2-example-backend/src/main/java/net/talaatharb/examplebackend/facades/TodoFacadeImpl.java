@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class TodoFacadeImpl implements TodoFacade{
@@ -23,14 +25,14 @@ public class TodoFacadeImpl implements TodoFacade{
     }
 
     @Override
-    public Page<TodoDTO> getTodos(final Pageable pageable) {
-        final var todos = todoService.getTodos(pageable);
+    public Page<TodoDTO> getTodos(final UUID userId, final Pageable pageable) {
+        final var todos = todoService.getTodos(userId, pageable);
         return todoMapper.fromEntityToDTO(todos);
     }
 
     @Override
-    public TodoDTO getTodo(final Long id) {
-        final var todo = todoService.getTodo(id);
+    public TodoDTO getTodo(final Long id, UUID userId) {
+        final var todo = todoService.getTodo(id, userId);
         return todoMapper.fromEntityToDTO(todo);
     }
 }

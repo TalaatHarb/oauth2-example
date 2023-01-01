@@ -12,6 +12,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,11 +21,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class TodoAPIIT extends AbstractControllerIT {
 
+    public static final String USER_UUID = "e3782644-c072-4daf-a0f1-e2a080db7443";
     @Autowired
     TodoRepository todoRepository;
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = USER_UUID)
     void testCreateTodo() throws Exception {
         // Arrange
         TodoDTO todo = TodoTestUtils.buildTodoDTOToCreate();
@@ -36,7 +39,7 @@ class TodoAPIIT extends AbstractControllerIT {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = USER_UUID)
     void testGetTodos() throws Exception {
         // Arrange
         // Page details
@@ -56,11 +59,13 @@ class TodoAPIIT extends AbstractControllerIT {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = USER_UUID)
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     void testGetTodo() throws Exception {
         // Arrange
         var todo = TodoTestUtils.buildTodoToCreate();
+        todo.setUserId(UUID.fromString(USER_UUID));
+
         todo = todoRepository.saveAndFlush(todo);
         Integer id = todo.getId().intValue();
         String url = APIConstants.TODOS_URL + "/" + id;
@@ -73,7 +78,7 @@ class TodoAPIIT extends AbstractControllerIT {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = USER_UUID)
     void testGetTodoThrowsNotFoundExceptionWhenNotExist() throws Exception {
         // Arrange
         Integer id = 0;

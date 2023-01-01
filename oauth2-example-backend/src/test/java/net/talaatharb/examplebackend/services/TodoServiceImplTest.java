@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -47,16 +48,17 @@ class TodoServiceImplTest {
         // Page details
         int page = 0;
         int size = 10;
+        UUID userId = UUID.randomUUID();
         Pageable pageable = PageRequest.of(page, size, Sort.by("updateDate").descending());
 
         Page<Todo> todos = Page.empty();
-        when(todoRepository.findAll(pageable)).thenReturn(todos);
+        when(todoRepository.findAllByUserId(userId, pageable)).thenReturn(todos);
 
         // Act
-        todoService.getTodos(pageable);
+        todoService.getTodos(userId, pageable);
 
         // Assert
-        verify(todoRepository).findAll(pageable);
+        verify(todoRepository).findAllByUserId(userId, pageable);
     }
 
     @Test
@@ -64,13 +66,14 @@ class TodoServiceImplTest {
         // Arrange
         // Page details
         Long id = 1L;
-        when(todoRepository.findById(anyLong())).thenReturn(Optional.of(new Todo()));
+        UUID userId = UUID.randomUUID();
+        when(todoRepository.findByIdAndUserId(id, userId)).thenReturn(Optional.of(new Todo()));
 
         // Act
-        todoService.getTodo(id);
+        todoService.getTodo(id, userId);
 
         // Assert
-        verify(todoRepository).findById(id);
+        verify(todoRepository).findByIdAndUserId(id, userId);
     }
 
     @Test
@@ -78,10 +81,11 @@ class TodoServiceImplTest {
         // Arrange
         // Page details
         Long id = 1L;
-        when(todoRepository.findById(anyLong())).thenReturn(Optional.empty());
+        UUID userId = UUID.randomUUID();
+        when(todoRepository.findByIdAndUserId(id, userId)).thenReturn(Optional.empty());
 
         // Act
-        Executable action = () -> todoService.getTodo(id);
+        Executable action = () -> todoService.getTodo(id, userId);
 
         // Assert
         assertThrows(TodoNotFoundException.class, action);

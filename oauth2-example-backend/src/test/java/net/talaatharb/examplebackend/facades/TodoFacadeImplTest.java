@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
@@ -56,17 +58,18 @@ class TodoFacadeImplTest {
         // Page details
         int page = 0;
         int size = 10;
+        UUID userId = UUID.randomUUID();
         Pageable pageable = PageRequest.of(page, size, Sort.by("updateDate").descending());
 
         Page<Todo> todos = Page.empty();
-        when(todoService.getTodos(pageable)).thenReturn(todos);
+        when(todoService.getTodos(userId, pageable)).thenReturn(todos);
         when(todoMapper.fromEntityToDTO(todos)).thenReturn(Page.empty());
 
         // Act
-        todoFacade.getTodos(pageable);
+        todoFacade.getTodos(userId, pageable);
 
         // Assert
-        verify(todoService).getTodos(pageable);
+        verify(todoService).getTodos(userId, pageable);
         verify(todoMapper).fromEntityToDTO(todos);
     }
 
@@ -76,15 +79,16 @@ class TodoFacadeImplTest {
         // Page details
         Long id = 1L;
         var todo = new Todo();
+        UUID userId = UUID.randomUUID();
 
-        when(todoService.getTodo(anyLong())).thenReturn(todo);
+        when(todoService.getTodo(id, userId)).thenReturn(todo);
         when(todoMapper.fromEntityToDTO(todo)).thenReturn(new TodoDTO());
 
         // Act
-        todoFacade.getTodo(id);
+        todoFacade.getTodo(id, userId);
 
         // Assert
-        verify(todoService).getTodo(id);
+        verify(todoService).getTodo(id, userId);
         verify(todoMapper).fromEntityToDTO(todo);
     }
 }

@@ -5,6 +5,7 @@ import io.micrometer.common.util.StringUtils;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 public class TodoDTO extends BaseDTO{
@@ -13,7 +14,9 @@ public class TodoDTO extends BaseDTO{
 
     private String description;
 
-    private LocalDateTime dueDate;
+    private LocalDateTime dueDate = LocalDateTime.now();
+
+    private UUID userId;
 
     @JsonIgnore
     public boolean isValidToCreate() {

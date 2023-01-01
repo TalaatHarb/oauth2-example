@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +24,13 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Page<Todo> getTodos(final Pageable pageable) {
-        return todoRepository.findAll(pageable);
+    public Page<Todo> getTodos(final UUID userId, final Pageable pageable) {
+        return todoRepository.findAllByUserId(userId, pageable);
     }
 
     @Override
-    public Todo getTodo(final Long id) {
-        final Optional<Todo> todoOptional = todoRepository.findById(id);
+    public Todo getTodo(final Long id, UUID userId) {
+        final Optional<Todo> todoOptional = todoRepository.findByIdAndUserId(id, userId);
         if(todoOptional.isEmpty()){
             throw new TodoNotFoundException(id);
         }
