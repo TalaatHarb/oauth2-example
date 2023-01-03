@@ -1,3 +1,10 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ng-container *ngIf="hasValidToken() | async">
+    <ion-router-outlet></ion-router-outlet>
+  </ng-container>
+  <ng-container *ngIf="(hasValidToken() | async) === false">
+    <button ion-button (click)="login()">
+      <ion-button expand="block">Login</ion-button>
+    </button>
+  </ng-container>
 </ion-app>

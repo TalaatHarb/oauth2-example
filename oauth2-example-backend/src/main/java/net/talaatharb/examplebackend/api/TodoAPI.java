@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RequestMapping(APIConstants.TODOS_URL)
 public interface TodoAPI {
 

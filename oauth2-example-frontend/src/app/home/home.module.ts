@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { MessageComponentModule } from '../message/message.module';
+import { TodoComponentModule } from '../todo/todo.module';
 
 @NgModule({
   imports: [
@@ -13,8 +14,10 @@ import { MessageComponentModule } from '../message/message.module';
     FormsModule,
     IonicModule,
     MessageComponentModule,
-    HomePageRoutingModule
+    TodoComponentModule,
+    HomePageRoutingModule,
+
   ],
   declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule { }
