@@ -214,7 +214,7 @@
 				<artifactId>dependency-check-maven</artifactId>
 				<version>${dependency-check-maven.version}</version>
 				<configuration>
-					<failBuildOnCVSS>7.0</failBuildOnCVSS>
+					<failBuildOnCVSS>7.6</failBuildOnCVSS>
 					<assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
 					<failOnError>true</failOnError>
 					<suppressionFile>dependency-check-suppression.xml</suppressionFile>

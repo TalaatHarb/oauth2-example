@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { RefresherCustomEvent } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonModal, RefresherCustomEvent } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 
-import { DataService, Message } from '../services/data.service';
+
 import Todo from '../models/todo.model';
 import { TodosService } from '../services/todos.service';
 
@@ -13,8 +14,12 @@ import { TodosService } from '../services/todos.service';
 export class HomePage implements OnInit{
 
   public todos: Todo[] = [];
+  public name = '';
 
-  constructor(private data: DataService, private todosService: TodosService) { }
+  @ViewChild(IonModal)
+  modal!: IonModal;
+
+  constructor(private todosService: TodosService) { }
 
   ngOnInit(): void {
     this.todosService.getPageOfTodos().subscribe(page => this.todos = page.content);
@@ -26,8 +31,24 @@ export class HomePage implements OnInit{
     }, 3000);
   }
 
-  getMessages(): Message[] {
-    return this.data.getMessages();
+  public cancel(): void {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  public confirm(): void {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+
+  public onWillDismiss(event: Event): void {
+    this.name = '';
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      const todoName = ev.detail.data;
+      const todo: Todo = {title: todoName as string};
+      this.todosService.createTodo(todo).subscribe((t) => {
+        this.todos.push(t);
+      });
+    }
   }
 
 }

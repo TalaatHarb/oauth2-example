@@ -51,3 +51,9 @@ keycloak:
 rest:
   security:
     issuer-uri: ${keycloak.schema}://${keycloak.host}:${keycloak.port}/auth/realms/${keycloak.realm}
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: example-frontend
+      client-secret:
