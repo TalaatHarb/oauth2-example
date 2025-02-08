@@ -1,1 +1,1 @@
-docker run --name=uaa -p 8180:8080 -p 8443:8443 -e KEYCLOAK_USER_FILE=/tmp/user.txt -e KEYCLOAK_PASSWORD_FILE=/tmp/password.txt -e KEYCLOAK_IMPORT=/tmp/uaa.json -v ${PWD}/files:/tmp --name uaa -d jboss/keycloak
+docker run --name example-uaa -p 8180:8080 -e KEYCLOAK_ADMIN=$(<files/user.txt) -e KEYCLOAK_ADMIN_PASSWORD=$(<files/password.txt) -v ${PWD}/files:/opt/keycloak/data/import -d quay.io/keycloak/keycloak:latest start-dev --import-realm --verbose

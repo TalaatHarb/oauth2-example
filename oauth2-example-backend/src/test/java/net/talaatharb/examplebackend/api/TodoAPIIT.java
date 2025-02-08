@@ -1,6 +1,5 @@
 package net.talaatharb.examplebackend.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import net.talaatharb.examplebackend.AbstractControllerIT;
 import net.talaatharb.examplebackend.dtos.TodoDTO;
 import net.talaatharb.examplebackend.repositories.TodoRepository;

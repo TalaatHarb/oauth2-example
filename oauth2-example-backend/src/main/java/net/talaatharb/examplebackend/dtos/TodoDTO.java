@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.micrometer.common.util.StringUtils;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class TodoDTO extends BaseDTO{
 
     @JsonView(JsonViewLevel.Summary.class)

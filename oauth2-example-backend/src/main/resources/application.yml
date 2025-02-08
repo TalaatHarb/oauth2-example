@@ -46,11 +46,11 @@ keycloak:
   realm: sample-realm
   client-id: example-backend
   schema: ${KEYCLOAK_SCEHMA:http}
-  token-url: ${keycloak.schema}://${keycloak.host}:${keycloak.port}/auth/realms/${keycloak.realm}/protocol/openid-connect/token
-  auth-url: ${keycloak.schema}://${keycloak.host}:${keycloak.port}/auth/realms/${keycloak.realm}/protocol/openid-connect/auth
+  token-url: ${keycloak.schema}://${keycloak.host}:${keycloak.port}/realms/${keycloak.realm}/protocol/openid-connect/token
+  auth-url: ${keycloak.schema}://${keycloak.host}:${keycloak.port}/realms/${keycloak.realm}/protocol/openid-connect/auth
 rest:
   security:
-    issuer-uri: ${keycloak.schema}://${keycloak.host}:${keycloak.port}/auth/realms/${keycloak.realm}
+    issuer-uri: ${keycloak.schema}://${keycloak.host}:${keycloak.port}/realms/${keycloak.realm}
 
 springdoc:
   swagger-ui:

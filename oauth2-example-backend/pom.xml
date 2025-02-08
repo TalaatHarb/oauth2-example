@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.2</version>
+		<version>3.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>net.talaatharb</groupId>
@@ -14,33 +14,30 @@
 	<name>oauth2-example-backend</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
-		<maven-pmd-plugin.version>3.19.0</maven-pmd-plugin.version>
-		<maven-site-plugin.version>4.0.0-M3</maven-site-plugin.version>
-		<dependency-check-maven.version>7.2.1</dependency-check-maven.version>
+		<java.version>21</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
+		<dependency-check-maven.version>11.1.0</dependency-check-maven.version>
 		<impsort-maven-plugin.version>1.7.0</impsort-maven-plugin.version>
 
 		<!-- Spring boot version -->
-		<maven-apache-plugins.version>3.0.0-M7</maven-apache-plugins.version>
-		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-		<lombok.version>1.18.24</lombok.version>
-		<springdoc.version>2.0.2</springdoc.version>
+		<lombok.version>1.18.36</lombok.version>
+		<springdoc.version>2.7.0</springdoc.version>
 
 		<!-- Language encoding -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- Mapping -->
-		<mapstruct.version>1.5.3.Final</mapstruct.version>
+		<mapstruct.version>1.6.3</mapstruct.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 
 		<!-- Testing -->
-		<pitest.version>1.9.5</pitest.version>
-		<pitest-junit5-plugin.version>1.0.0</pitest-junit5-plugin.version>
+		<pitest.version>1.17.2</pitest.version>
+		<pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
 		<minimum-coverage-ratio>0.8</minimum-coverage-ratio>
-		<jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
 		<sonar.coverage.jacoco.xmlReportPaths>
 			${project.basedir}/report-aggregate/target/site/jacoco-aggregate/jacoco.xml
 		</sonar.coverage.jacoco.xmlReportPaths>
