@@ -1,7 +1,10 @@
 package net.talaatharb.examplebackend.exceptions;
 
 public class TodoNotFoundException extends RuntimeException{
-    private final Long id;
+
+	private static final long serialVersionUID = -5438967927948050390L;
+	
+	private final Long id;
     public TodoNotFoundException(final Long id){
         super();
         this.id = id;

@@ -12,7 +12,7 @@ public class MapperBeansConfig {
     }
 
     @Bean
-    public TodoMapper todoMapper() {
+    TodoMapper todoMapper() {
         return Mappers.getMapper(TodoMapper.class);
     }
 }
