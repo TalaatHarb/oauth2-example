@@ -26,5 +26,5 @@ public interface TodoAPI {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @JsonView(JsonViewLevel.Details.class)
-    TodoDTO getTodo(@PathVariable("id") Long id, Authentication authentication);
+    TodoDTO getTodo(@PathVariable Long id, Authentication authentication);
 }
