@@ -5,6 +5,7 @@ server:
 logging:
   level[net.talaatharb]: DEBUG
   level[org.springframework.web]: DEBUG
+  level[org.springframework.security]: DEBUG
 
 spring:
   jackson:
